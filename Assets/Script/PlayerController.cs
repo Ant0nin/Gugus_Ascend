@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Jump()
     {
+        Debug.Log(isGrounded);
         if (isGrounded) myBody.velocity += jumpVelocity * Vector2.up;
         EventManager.TriggerEvent("jump");
     }

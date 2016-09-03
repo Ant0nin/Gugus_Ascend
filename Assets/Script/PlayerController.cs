@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     Transform tagGround;
     Rigidbody2D myBody;
     bool isGrounded = false;
+    public string[] actions = {"left", "up", "right"};
 
     void Start()
     {
@@ -19,29 +20,22 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(Input.GetButton("left"))
+        if(Input.GetButton(actions[0]))
         {
             myBody.velocity += speed * Vector2.left;
         }
 
-        if (Input.GetButton("up"))
+        if (Input.GetButton(actions[1]))
         {
             Jump();
         }
 
-        if(Input.GetButton("right"))
+        if(Input.GetButton(actions[2]))
         {
             myBody.velocity += speed * Vector2.right;
         }
-
-        /*Vector2 startPoint = transform.position;
-        Vector2 endPoint = new Vector2(transform.position.x, transform.position.y + 0.1f);*/
-
-        isGrounded = Physics2D.Linecast(transform.position, tagGround.position, playerMask);
-        Debug.DrawRay(transform.position, tagGround.position);
-
-        Debug.Log(isGrounded);
         
+        isGrounded = Physics2D.Linecast(transform.position, tagGround.position, playerMask);        
     }
 
     public void Jump()

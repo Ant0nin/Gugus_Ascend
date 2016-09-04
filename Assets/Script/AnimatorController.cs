@@ -26,7 +26,7 @@ public class AnimatorController : MonoBehaviour {
 
     public void UpdateSpeed(float currentSpeed) {
         myAnim.SetFloat("speed", currentSpeed);
-        //FlipArt(currentSpeed);
+        FlipArt(currentSpeed);
     }
 
     public void UpdateIsGround(bool isGrounded) {

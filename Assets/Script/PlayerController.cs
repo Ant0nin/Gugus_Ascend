@@ -4,15 +4,21 @@ using System.Collections;
 [System.Serializable]
 public class PlayerController : MonoBehaviour {
 
-    public float speed = 10, jumpVelocity = 10, maxSpeed = 20;
+    public float speed = 10;
+    public float jumpVelocity = 10;
+    public float bumpForce = 2f;
+
     public LayerMask playerMask;
 
     Transform tagGround;
     Rigidbody2D myBody;
     AnimatorController myAnim;
 
-    bool isGrounded = false;
     System.Random randomGen = new System.Random();
+
+    bool isGrounded = false;
+    bool isOnWall = false;
+    bool wallOnLeft = false;
 
     public string[] actions = {"left", "up", "right"};
 
@@ -51,7 +57,15 @@ public class PlayerController : MonoBehaviour {
 
     private void Jump()
     {
-        if (isGrounded) myBody.velocity += jumpVelocity * Vector2.up;
+        if (isGrounded)
+            myBody.velocity += jumpVelocity * Vector2.up;
+        else if(isOnWall)
+        {
+            float x = wallOnLeft ? -1f : 1f;
+            myBody.velocity += jumpVelocity * bumpForce * new Vector2(x, 1f);
+            isOnWall = false;
+        }
+
         EventManager.TriggerEvent("jump");
     }
 
@@ -60,7 +74,7 @@ public class PlayerController : MonoBehaviour {
         EventManager.StartListening("change", ControlsShuffle);
     }
 
-    public void ControlsShuffle()
+    void ControlsShuffle()
     {
         int n = actions.Length;
         for (int i = 0; i < n; i++)
@@ -71,5 +85,22 @@ public class PlayerController : MonoBehaviour {
             actions[i] = t;
         }
     }
-    
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "wall")
+        {
+            isOnWall = true;
+            wallOnLeft = (transform.position.x < other.transform.position.x);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "wall")
+        {
+            isOnWall = false;
+        }
+    }
+
 }

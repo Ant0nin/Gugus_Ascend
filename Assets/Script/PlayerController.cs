@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 10;
     public float jumpVelocity = 10;
     public float bumpForce = 2f;
+    public float minVelocityBump = 0.2f;
 
     public LayerMask playerMask;
 
@@ -90,8 +91,11 @@ public class PlayerController : MonoBehaviour {
     {
         if(other.gameObject.tag == "wall")
         {
-            isOnWall = true;
-            wallOnLeft = (transform.position.x < other.transform.position.x);
+            /*if(Mathf.Abs(myBody.velocity.x) > minVelocityBump)
+            {*/
+                isOnWall = true;
+                wallOnLeft = (other.transform.position.x < transform.position.x);
+            //}
         }
     }
 

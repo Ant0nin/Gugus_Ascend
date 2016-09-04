@@ -62,9 +62,8 @@ public class PlayerController : MonoBehaviour {
             myBody.velocity += jumpVelocity * Vector2.up;
         else if(isOnWall)
         {
-            float x = wallOnLeft ? -1f : 1f;
+            float x = wallOnLeft ? 1f : -1f;
             myBody.velocity += jumpVelocity * bumpForce * new Vector2(x, 1f);
-            isOnWall = false;
         }
 
         EventManager.TriggerEvent("jump");
@@ -91,11 +90,8 @@ public class PlayerController : MonoBehaviour {
     {
         if(other.gameObject.tag == "wall")
         {
-            /*if(Mathf.Abs(myBody.velocity.x) > minVelocityBump)
-            {*/
-                isOnWall = true;
-                wallOnLeft = (other.transform.position.x < transform.position.x);
-            //}
+            isOnWall = true;
+            wallOnLeft = (other.transform.position.x < transform.position.x);
         }
     }
 

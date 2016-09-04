@@ -5,7 +5,7 @@ public class TriggerWinLevel : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "player")
+        if (other.tag == "Player")
             EventManager.TriggerEvent("win");
     }
 }

@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour {
 
     void PlayDeathSound()
     {
-        //effect_death.Play();
+        effect_death.Play();
     }
     void PlayHitSound()
     {
@@ -54,6 +54,6 @@ public class SoundManager : MonoBehaviour {
     }
     void PlayArrowSound()
     {
-        //effect_arrow.Play();
+        effect_arrow.Play();
     }
 }

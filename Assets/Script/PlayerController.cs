@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
 
     Transform tagGround;
     Rigidbody2D myBody;
+    AnimatorController myAnim;
+
     bool isGrounded = false;
     System.Random randomGen = new System.Random();
 
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     {
         tagGround = GameObject.Find(this.name + "/tag_ground").transform;
         myBody = this.GetComponent<Rigidbody2D>();
+        myAnim = AnimatorController.instance;
     }
 
     void FixedUpdate()
@@ -41,7 +44,9 @@ public class PlayerController : MonoBehaviour {
             myBody.velocity += speed * Vector2.right;
         }
         
-        isGrounded = Physics2D.Linecast(transform.position, tagGround.position, playerMask);        
+        isGrounded = Physics2D.Linecast(transform.position, tagGround.position, playerMask);
+        myAnim.UpdateIsGround(isGrounded);
+        myAnim.UpdateSpeed(myBody.velocity.x);
     }
 
     private void Jump()

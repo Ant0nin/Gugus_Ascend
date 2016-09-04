@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class PlayerController : MonoBehaviour {
 
-    public float speed = 10, jumpVelocity = 10;
+    public float speed = 10, jumpVelocity = 10, maxSpeed = 20;
     public LayerMask playerMask;
 
     Transform tagGround;
@@ -22,18 +22,22 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(Input.GetButton(actions[0]))
+        if(Input.GetButton(actions[0])) // LEFT
         {
+            if (myBody.velocity.x > 0)
+                myBody.velocity = new Vector2(0, myBody.velocity.y);
             myBody.velocity += speed * Vector2.left;
         }
 
-        if (Input.GetButton(actions[1]))
+        if (Input.GetButton(actions[1])) // UP
         {
             Jump();
         }
 
-        if(Input.GetButton(actions[2]))
+        if(Input.GetButton(actions[2])) // RIGHT
         {
+            if (myBody.velocity.x < 0)
+                myBody.velocity = new Vector2(0, myBody.velocity.y);
             myBody.velocity += speed * Vector2.right;
         }
         
@@ -42,7 +46,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Jump()
     {
-        Debug.Log(isGrounded);
         if (isGrounded) myBody.velocity += jumpVelocity * Vector2.up;
         EventManager.TriggerEvent("jump");
     }

@@ -19,7 +19,10 @@ public class ArrowBehavior : MonoBehaviour {
     {
         offsetX += speed;
         if (offsetX > distance)
+        {
             offsetX = 0;
+            EventManager.TriggerEvent("arrow");
+        }
 
         float x = initialPosition.x + offsetX;
         transform.position = new Vector3(x, transform.position.y, transform.position.z);

@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.tag == "wall")
         {
             isOnWall = false;
+            EventManager.TriggerEvent("hit");
         }
     }
 

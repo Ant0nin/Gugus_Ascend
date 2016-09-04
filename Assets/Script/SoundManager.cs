@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour {
     public AudioSource effect_death;
     public AudioSource effect_hit;
     public AudioSource effect_arrow;
+    public AudioSource effect_win;
 
     int currentMusicIndex = 0;
 
@@ -19,6 +20,7 @@ public class SoundManager : MonoBehaviour {
         EventManager.StartListening("kill", PlayDeathSound);
         EventManager.StartListening("hit", PlayHitSound);
         EventManager.StartListening("arrow", PlayArrowSound);
+        EventManager.StartListening("win", PlayWinSound);
 
         foreach (AudioSource audio in music_ambiant)
         {
@@ -55,5 +57,10 @@ public class SoundManager : MonoBehaviour {
     void PlayArrowSound()
     {
         effect_arrow.Play();
+    }
+
+    void PlayWinSound()
+    {
+        effect_win.Play();
     }
 }

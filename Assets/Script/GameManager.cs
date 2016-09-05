@@ -16,11 +16,11 @@ public class GameManager : MonoBehaviour {
 
     void SaveCheckpoint()
     {
-        checkpoint = playerTransform.position;
+        checkpoint = new Vector3(playerTransform.position.x, playerTransform.position.y);
     }
 
     void RespawnToLastCheckpoint()
     {
-        playerTransform.position = checkpoint;
+        playerTransform.position = new Vector3(checkpoint.x, checkpoint.y);
     }
 }

@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour {
     }
     void PlayHitSound()
     {
-        effect_hit.Play();
+        //effect_hit.Play();
     }
     void PlayArrowSound()
     {
